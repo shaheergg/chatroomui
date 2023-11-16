@@ -1,16 +1,9 @@
+import { useMemo } from "react";
 import React from "react";
 
 import { motion } from "framer-motion";
 
 function Message({ message, idx }) {
-  const random = (num) => {
-    let color = "#";
-    for (let i = 0; i < num; i++) {
-      color += Math.floor(Math.random() * 16).toString(16);
-    }
-    return color;
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -22,10 +15,9 @@ function Message({ message, idx }) {
     >
       <div>
         <img
-          style={{ backgroundColor: random(6) }}
           src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${message.name}`}
           alt="avatar"
-          className="object-cover w-12 h-12 rounded-full"
+          className="object-cover w-12 h-12 bg-[#191919] rounded-full"
         />
       </div>
       <div className="w-full space-y-2">
