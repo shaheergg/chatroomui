@@ -1,6 +1,5 @@
-import { useMemo } from "react";
 import React from "react";
-
+import { Menu } from "@headlessui/react";
 import { motion } from "framer-motion";
 
 function Message({ message, idx }) {
@@ -28,7 +27,7 @@ function Message({ message, idx }) {
               at 4:40 PM
             </span>{" "}
           </h2>
-          <span className="hidden group-hover:flex">
+          <span className="p-2 transition-all scale-0 rounded-full hover:bg-neutral-600 group-hover:scale-100">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
