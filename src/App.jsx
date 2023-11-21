@@ -66,7 +66,7 @@ function App() {
   return (
     <>
       <div className="flex flex-col text-white">
-        <div className="sticky top-0 flex items-center p-4">
+        <div className="sticky top-0 flex items-center p-4 backdrop-blur-lg bg-neutral-800/50">
           <div>
             <h2 className="flex items-center gap-4 text-4xl font-semibold">
               <svg
@@ -84,12 +84,12 @@ function App() {
             </h2>
           </div>
         </div>
-        <div className="container py-12">
+        <div className="container py-12 mx-auto">
           <div className="space-y-12">
             <h2 className="text-3xl font-semibold text-center">
               Engineering Team Chatroom
             </h2>
-            <div className="max-w-2xl pb-12 m-auto rounded-lg shadow-lg bg-neutral-800">
+            <div className="w-full pb-12 rounded-lg shadow-lg bg-neutral-800">
               <div className="p-4">
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg font-semibold">All Messages</h2>
