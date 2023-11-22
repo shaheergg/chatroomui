@@ -10,7 +10,7 @@ function Message({ message, idx }) {
       transition={{ duration: 0.5, delay: idx * 0.1 }}
       exit={{ opacity: 0, x: 50 }}
       key={idx}
-      className="flex items-center gap-4 p-4 cursor-pointer group hover:bg-neutral-700"
+      className="flex items-center gap-4 p-4 transition-all cursor-pointer group hover:bg-neutral-700"
     >
       <div>
         <img
@@ -21,7 +21,7 @@ function Message({ message, idx }) {
       </div>
       <div className="w-full space-y-2">
         <div className="flex items-center justify-between w-full">
-          <h2 className="text-lg font-semibold">
+          <h2 className="text-xl font-semibold">
             {message.name}{" "}
             <span className="text-sm font-medium text-neutral-400">
               at 4:40 PM
@@ -44,7 +44,7 @@ function Message({ message, idx }) {
             </svg>
           </span>
         </div>
-        <p className="text-sm">{message.message}</p>
+        <p className="text-lg">{message.message}</p>
 
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium text-neutral-400">

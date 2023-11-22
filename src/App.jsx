@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import { motion } from "framer-motion";
 import Message from "./components/Message";
 function App() {
   const [currMessage, setCurrMessage] = useState("");
@@ -86,9 +85,25 @@ function App() {
         </div>
         <div className="container py-12 mx-auto">
           <div className="space-y-12">
-            <h2 className="text-3xl font-semibold text-center">
-              Engineering Team Chatroom
-            </h2>
+            <div className="flex items-center justify-between p-4">
+              <h2 className="text-4xl font-semibold">Indusapps workspace.</h2>
+              <button className="p-2 rounded-full hover:bg-neutral-800">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                  />
+                </svg>
+              </button>
+            </div>
             <div className="w-full pb-12 rounded-lg shadow-lg bg-neutral-800">
               <div className="p-4">
                 <div className="flex items-center justify-between">
@@ -102,7 +117,7 @@ function App() {
                 return <Message message={message} idx={idx} key={idx} />;
               })}
             </div>
-            <div className="fixed inline-block w-1/2 p-4 text-center transform -translate-x-1/2 border rounded-lg shadow bottom-5 backdrop-blur-lg border-neutral-700 left-1/2">
+            <div className="fixed inline-block min-w-[50%] p-4 text-center transform -translate-x-1/2 border rounded-lg shadow bottom-5 backdrop-blur-lg border-neutral-700 left-1/2">
               <div className="flex items-center w-full">
                 <input
                   value={currMessage}
