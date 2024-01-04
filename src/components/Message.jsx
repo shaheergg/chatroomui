@@ -1,8 +1,10 @@
 import React from "react";
-import { Menu } from "@headlessui/react";
 import { motion } from "framer-motion";
-
+import { useStore } from "../store";
 function Message({ message, idx }) {
+  const archiveMessage = useStore((state) => state.archiveMessage);
+  const deleteMessage = useStore((state) => state.deleteMessage);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -51,11 +53,20 @@ function Message({ message, idx }) {
             {message.time}
           </span>
 
-          <button className="text-sm font-medium underline text-neutral-400">
+          <button
+            onClick={() => deleteMessage(message.id)}
+            className="text-sm font-medium underline text-neutral-400"
+          >
             Delete
           </button>
           <button className="text-sm font-medium underline text-neutral-400">
             Reply
+          </button>
+          <button
+            onClick={() => archiveMessage(message.id)}
+            className="text-sm font-medium underline text-neutral-400"
+          >
+            Archive
           </button>
         </div>
       </div>

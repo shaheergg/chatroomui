@@ -1,67 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Message from "./components/Message";
+import { useStore } from "./store";
 function App() {
   const [currMessage, setCurrMessage] = useState("");
-
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      name: "Wade Cooper",
-      message:
-        "The service you wrote for cloude updates don't work quite right.",
-      time: "5 days ago",
-    },
-    {
-      id: 2,
-      name: "Arlene Mccoy",
-      message:
-        "The service you wrote for cloude updates don't work quite right.",
-      time: "5 days ago",
-    },
-    {
-      id: 3,
-      name: "Devon Webb",
-      message:
-        "The service you wrote for cloude updates don't work quite right.",
-      time: "5 days ago",
-    },
-    {
-      id: 4,
-      name: "Tom Cook",
-      message:
-        "The service you wrote for cloude updates don't work quite right.",
-      time: "5 days ago",
-    },
-    {
-      id: 5,
-      name: "Tanya Fox",
-      message:
-        "The service you wrote for cloude updates don't work quite right.",
-      time: "5 days ago",
-    },
-    {
-      id: 6,
-      name: "Hellen Schmidt",
-      message:
-        "The service you wrote for cloude updates don't work quite right.",
-      time: "5 days ago",
-    },
-    {
-      id: 7,
-      name: "Caroline Schultz",
-      message:
-        "The service you wrote for cloude updates don't work quite right.",
-      time: "5 days ago",
-    },
-    {
-      id: 8,
-      name: "Mason Heaney",
-      message:
-        "The service you wrote for cloude updates don't work quite right.",
-      time: "5 days ago",
-    },
-  ]);
+  const messages = useStore((state) =>
+    state.messages.filter((m) => !m.archived)
+  );
+  const showArchived = useStore((state) => state.showArchived);
+  const toggleShowArchived = useStore((state) => state.toggleShowArchived);
+  const addMessage = useStore((state) => state.addMessage);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      addMessage({
+        id: messages.length + 1,
+        name: "Wade Cooper",
+        message: currMessage,
+        time: "5 days ago",
+        archived: false,
+      });
+      setCurrMessage("");
+    }
+  };
   return (
     <>
       <div className="flex flex-col text-white">
@@ -86,7 +46,7 @@ function App() {
         <div className="container py-12 mx-auto">
           <div className="space-y-12">
             <div className="flex items-center justify-between p-4">
-              <h2 className="text-4xl font-semibold">Indusapps workspace.</h2>
+              <h2 className="text-4xl font-semibold">Slack</h2>
               <button className="p-2 rounded-full hover:bg-neutral-800">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -104,23 +64,32 @@ function App() {
                 </svg>
               </button>
             </div>
-            <div className="w-full pb-12 rounded-lg shadow-lg bg-neutral-800">
-              <div className="p-4">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold">All Messages</h2>
-                  <button className="text-sm font-medium underline text-neutral-400">
-                    Archived
-                  </button>
+            <div className="flex gap-4">
+              <div className="w-56 rounded-lg shadow-lg bg-neutral-800"></div>
+              <div className="w-full pb-12 rounded-lg shadow-lg bg-neutral-800">
+                <div className="p-4">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg font-semibold">
+                      {showArchived ? "Archived" : "All"} Messages
+                    </h2>
+                    <button
+                      onClick={toggleShowArchived}
+                      className="text-sm font-medium underline text-neutral-400"
+                    >
+                      Archived
+                    </button>
+                  </div>
                 </div>
+                {messages.map((message) => (
+                  <Message archive message={message} key={message.id} />
+                ))}
               </div>
-              {messages.map((message, idx) => {
-                return <Message message={message} idx={idx} key={idx} />;
-              })}
             </div>
             <div className="fixed inline-block min-w-[50%] p-4 text-center transform -translate-x-1/2 border rounded-lg shadow bottom-5 backdrop-blur-lg border-neutral-700 left-1/2">
               <div className="flex items-center w-full">
                 <input
                   value={currMessage}
+                  onKeyDown={handleKeyDown}
                   onChange={(e) => setCurrMessage(e.target.value)}
                   type="text"
                   className="flex-1 px-4 py-2 rounded-md bg-[#191919] outline-none"
@@ -129,15 +98,13 @@ function App() {
 
                 <button
                   onClick={() => {
-                    setMessages([
-                      {
-                        id: 9,
-                        name: "Gordon Ramsey",
-                        message: currMessage,
-                        time: "5 days ago",
-                      },
-                      ...messages,
-                    ]);
+                    addMessage({
+                      id: messages.length + 1,
+                      name: "Wade Cooper",
+                      message: currMessage,
+                      time: "5 days ago",
+                      archived: false,
+                    });
                     setCurrMessage("");
                   }}
                   className="px-4 py-2 ml-4 font-semibold rounded-md text-neutral-200 bg-neutral-700 hover:bg-neutral-600"
